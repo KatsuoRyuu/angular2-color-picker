@@ -11,12 +11,16 @@
   "dependencies": {
     "@angular/common": "~2.4.0",
     "@angular/core": "~2.4.0",
+    
     "@angular/platform-browser": "~2.4.0",
     "rxjs": "5.0.1",
     "zone.js": "^0.7.4"
   },
   "devDependencies": {
     "concurrently": "^3.0.0",
+    "@types/core-js": "0.9.28",
+    "@types/jasmine": "^2.2.29",
+    "@types/node": "7.0.0",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-inline-ng2-template": "^4.0.0",
