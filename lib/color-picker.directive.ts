@@ -89,7 +89,7 @@ export class ColorPickerDirective implements OnInit, OnChanges {
                         this.cpPositionRelativeToArrow, this.cpOutputFormat, this.cpPresetLabel, this.cpPresetColors,
                         this.cpCancelButton, this.cpCancelButtonClass, this.cpCancelButtonText,
                         this.cpOKButton, this.cpOKButtonClass, this.cpOKButtonText, this.cpHeight, this.cpWidth,
-                        this.cpIgnoredElements, this.cpDialogDisplay, this.cpSaveClickOutside, this.cpAlphaChannel);
+                        this.cpIgnoredElements, this.cpDialogDisplay, this.cpSaveClickOutside, this.cpAlphaChannel, this.cpForceHex6);
                     this.dialog = cmpRef.instance;
                 });
         } else if (this.dialog) {
@@ -320,6 +320,7 @@ export class DialogComponent implements OnInit {
     private cpDialogDisplay: string;
     private cpSaveClickOutside: boolean;
     private cpAlphaChannel: string;
+    private cpForceHex6: boolean;
 
     private dialogArrowSize: number = 10;
     private dialogArrowOffset: number = 15;
@@ -337,7 +338,7 @@ export class DialogComponent implements OnInit {
         cpCancelButton: boolean, cpCancelButtonClass: string, cpCancelButtonText: string,
         cpOKButton: boolean, cpOKButtonClass: string, cpOKButtonText: string,
         cpHeight: string, cpWidth: string,
-        cpIgnoredElements: any, cpDialogDisplay: string, cpSaveClickOutside: boolean, cpAlphaChannel: string) {
+        cpIgnoredElements: any, cpDialogDisplay: string, cpSaveClickOutside: boolean, cpAlphaChannel: string, cpForceHex6: boolean) {
         this.directiveInstance = instance;
         this.initialColor = color;
         this.directiveElementRef = elementRef;
@@ -365,6 +366,7 @@ export class DialogComponent implements OnInit {
         }
         this.cpSaveClickOutside = cpSaveClickOutside;
         this.cpAlphaChannel = cpAlphaChannel;
+        this.cpForceHex6 = cpForceHex6;
     }
 
     ngOnInit() {
@@ -567,7 +569,7 @@ export class DialogComponent implements OnInit {
 
         this.hslaText = new Hsla(Math.round((hsla.h) * 360), Math.round(hsla.s * 100), Math.round(hsla.l * 100), Math.round(hsla.a * 100) / 100);
         this.rgbaText = new Rgba(rgba.r, rgba.g, rgba.b, Math.round(rgba.a * 100) / 100);
-        this.hexText = this.service.hexText(rgba, this.cpAlphaChannel === 'hex8');
+        this.hexText = this.service.hexText(rgba, this.cpAlphaChannel === 'hex8', this.cpForceHex6);
 
         this.alphaSliderColor = 'rgb(' + rgba.r + ',' + rgba.g + ',' + rgba.b + ')';
         this.hueSliderColor = 'rgb(' + hueRgba.r + ',' + hueRgba.g + ',' + hueRgba.b + ')';
@@ -577,8 +579,8 @@ export class DialogComponent implements OnInit {
         }
 
         let lastOutput = this.outputColor;
-        this.outputColor = this.service.outputFormat(this.hsva, this.cpOutputFormat, this.cpAlphaChannel === 'hex8');
-        this.selectedColor = this.service.outputFormat(this.hsva, 'rgba', false);
+        this.outputColor = this.service.outputFormat(this.hsva, this.cpOutputFormat, this.cpAlphaChannel === 'hex8', this.cpForceHex6);
+        this.selectedColor = this.service.outputFormat(this.hsva, 'rgba', false, this.cpForceHex6);
 
         this.slider = new SliderPosition((this.hsva.h) * this.sliderDimMax.h - 8, this.hsva.s * this.sliderDimMax.s - 8,
             (1 - this.hsva.v) * this.sliderDimMax.v - 8, this.hsva.a * this.sliderDimMax.a - 8)

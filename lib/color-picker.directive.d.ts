@@ -104,6 +104,7 @@ export declare class DialogComponent implements OnInit {
     private cpDialogDisplay;
     private cpSaveClickOutside;
     private cpAlphaChannel;
+    private cpForceHex6;
     private dialogArrowSize;
     private dialogArrowOffset;
     private arrowTop;
@@ -111,7 +112,7 @@ export declare class DialogComponent implements OnInit {
     alphaSlider: any;
     dialogElement: any;
     constructor(el: ElementRef, service: ColorPickerService);
-    setDialog(instance: any, elementRef: ElementRef, color: any, cpPosition: string, cpPositionOffset: string, cpPositionRelativeToArrow: boolean, cpOutputFormat: string, cpPresetLabel: string, cpPresetColors: Array<string>, cpCancelButton: boolean, cpCancelButtonClass: string, cpCancelButtonText: string, cpOKButton: boolean, cpOKButtonClass: string, cpOKButtonText: string, cpHeight: string, cpWidth: string, cpIgnoredElements: any, cpDialogDisplay: string, cpSaveClickOutside: boolean, cpAlphaChannel: string): void;
+    setDialog(instance: any, elementRef: ElementRef, color: any, cpPosition: string, cpPositionOffset: string, cpPositionRelativeToArrow: boolean, cpOutputFormat: string, cpPresetLabel: string, cpPresetColors: Array<string>, cpCancelButton: boolean, cpCancelButtonClass: string, cpCancelButtonText: string, cpOKButton: boolean, cpOKButtonClass: string, cpOKButtonText: string, cpHeight: string, cpWidth: string, cpIgnoredElements: any, cpDialogDisplay: string, cpSaveClickOutside: boolean, cpAlphaChannel: string, cpForceHex6: boolean): void;
     ngOnInit(): void;
     setInitialColor(color: any): void;
     openDialog(color: any, emit?: boolean): void;
