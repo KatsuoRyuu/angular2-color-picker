@@ -161,7 +161,7 @@ export class ColorPickerService {
         return hsva;
     }
 
-    outputFormat(hsva: Hsva, outputFormat: string, allowHex8: boolean): string {
+    outputFormat(hsva: Hsva, outputFormat: string, allowHex8: boolean, forceHex6?: boolean): string {
         if (hsva.a < 1) {
             switch (outputFormat) {
                 case 'hsla':
@@ -170,7 +170,7 @@ export class ColorPickerService {
                     return 'hsla(' + hslaText.h + ',' + hslaText.s + '%,' + hslaText.l + '%,' + hslaText.a + ')';
                 default:
                     if (allowHex8 && outputFormat === 'hex')
-                        return this.hexText(this.denormalizeRGBA(this.hsvaToRgba(hsva)), allowHex8);
+                        return this.hexText(this.denormalizeRGBA(this.hsvaToRgba(hsva)), allowHex8, forceHex6);
                     let rgba = this.denormalizeRGBA(this.hsvaToRgba(hsva));
                     return 'rgba(' + rgba.r + ',' + rgba.g + ',' + rgba.b + ',' + Math.round(rgba.a * 100) / 100 + ')';
             }
@@ -189,10 +189,12 @@ export class ColorPickerService {
         }
     }
 
-    hexText(rgba: Rgba, allowHex8: boolean): string {
+    hexText(rgba: Rgba, allowHex8: boolean, forceHex6?: boolean): string {
         let hexText = '#' + ((1 << 24) | (rgba.r << 16) | (rgba.g << 8) | rgba.b).toString(16).substr(1);
-        if (hexText[1] === hexText[2] && hexText[3] === hexText[4] && hexText[5] === hexText[6] && rgba.a === 1 && !allowHex8) {
-            hexText = '#' + hexText[1] + hexText[3] + hexText[5];
+        if (!forceHex6) {
+            if (hexText[1] === hexText[2] && hexText[3] === hexText[4] && hexText[5] === hexText[6] && rgba.a === 1 && !allowHex8) {
+                hexText = '#' + hexText[1] + hexText[3] + hexText[5];
+            }
         }
         if (allowHex8) {
             hexText += ((1 << 8) | Math.round(rgba.a * 255)).toString(16).substr(1);

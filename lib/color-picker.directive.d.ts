@@ -29,6 +29,7 @@ export declare class ColorPickerDirective implements OnInit, OnChanges {
     cpDialogDisplay: string;
     cpSaveClickOutside: boolean;
     cpAlphaChannel: string;
+    cpForceHex6: boolean;
     private dialog;
     private created;
     private ignoreChanges;

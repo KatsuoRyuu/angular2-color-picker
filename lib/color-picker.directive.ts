@@ -35,6 +35,7 @@ export class ColorPickerDirective implements OnInit, OnChanges {
     @Input('cpDialogDisplay') cpDialogDisplay: string = 'popup';
     @Input('cpSaveClickOutside') cpSaveClickOutside: boolean = true;
     @Input('cpAlphaChannel') cpAlphaChannel: string = 'hex6';
+    @Input('cpForceHex6') cpForceHex6: boolean = false;
 
     private dialog: any;
     private created: boolean;
@@ -67,7 +68,7 @@ export class ColorPickerDirective implements OnInit, OnChanges {
         if (hsva == null) {
             hsva = this.service.stringToHsva(this.cpFallbackColor);
         }
-        this.colorPickerChange.emit(this.service.outputFormat(hsva, this.cpOutputFormat, this.cpAlphaChannel === 'hex8'));
+        this.colorPickerChange.emit(this.service.outputFormat(hsva, this.cpOutputFormat, this.cpAlphaChannel === 'hex8', this.cpForceHex6));
     }
 
     onClick() {
